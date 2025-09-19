@@ -96,12 +96,16 @@ class JapaneseSpeechCompareWidget extends StatefulWidget {
     required this.question,
     this.requiredTexts = const [],
     this.onResult,
+    this.onListeningStart,
+    this.onListeningEnd,
     required this.config,
   });
 
   final String question;
   final List<String> requiredTexts;
   final Function(bool)? onResult;
+  final Function? onListeningStart;
+  final Function? onListeningEnd;
   final JapaneseSpeechCompareConfig config;
 
   @override
@@ -251,6 +255,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                               });
                             },
                             onListeningStart: () {
+                              widget.onListeningStart?.call();
                               setState(() {
                                 _scale = 1;
                                 _result = "";
@@ -258,6 +263,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                               });
                             },
                             onListeningEnd: () {
+                              widget.onListeningEnd?.call();
                               setState(() {
                                 _scale = 0.8;
                               });
