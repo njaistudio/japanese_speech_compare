@@ -155,7 +155,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
     }
 
     final compareResult = await SentenceComparer.compare(widget.question, _result, requiredTexts: widget.requiredTexts);
-    if(compareResult > widget.config.answerCorrectEdge) {
+    if(compareResult >= widget.config.answerCorrectEdge) {
       setState(() {
         _statusState = StatusState.correct;
       });
@@ -213,7 +213,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     );
                   },
                   child: Blob.animatedRandom(
-                    size: size / 2,
+                    size: size / 1.7,
                     edgesCount: 9,
                     minGrowth: 9,
                     loop: true,
@@ -248,7 +248,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                                 return;
                               }
                               setState(() {
-                                _scale = 1 + level;
+                                _scale = 1 + level / 2;
                               });
                             },
                             onFinalResult: (text) {
