@@ -219,7 +219,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     loop: true,
                     duration: Duration(milliseconds: 500),
                     styles: BlobStyles(
-                      color: _statusState == StatusState.ready ? (widget.config.readyColor ?? _statusState.color) : _statusState.color,
+                      color: _statusState == StatusState.ready || _statusState == StatusState.listening ? (widget.config.readyColor ?? _statusState.color) : _statusState.color,
                     ),
                     child: Center(
                       child: InkWell(
