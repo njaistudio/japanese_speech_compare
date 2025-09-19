@@ -18,14 +18,14 @@ enum StatusState {
   networkError,
   notSupportError;
 
-  Color get color {
+  Color getColor(Color? baseColor) {
     switch(this) {
       case StatusState.prepare:
         return Colors.grey.shade800;
       case StatusState.ready:
       case StatusState.listening:
       case StatusState.processing:
-        return Colors.blue.shade300;
+        return baseColor ?? Colors.blue.shade300;
       case StatusState.correct:
         return Colors.green.shade300;
       case StatusState.wrong:
@@ -82,7 +82,7 @@ class JapaneseSpeechCompareConfig {
     this.answerCorrectEdge = 0.8,
     this.showAnswer = false,
     this.answerTextStyle,
-    this.readyColor,
+    this.baseColor,
   });
 
   final String notSupportDeviceDescription;
@@ -91,7 +91,7 @@ class JapaneseSpeechCompareConfig {
   final double answerCorrectEdge;
   final bool showAnswer;
   final TextStyle? answerTextStyle;
-  final Color? readyColor;
+  final Color? baseColor;
 }
 
 class JapaneseSpeechCompareWidget extends StatefulWidget {
@@ -219,7 +219,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     loop: true,
                     duration: Duration(milliseconds: 500),
                     styles: BlobStyles(
-                      color: _statusState == StatusState.ready || _statusState == StatusState.listening ? (widget.config.readyColor ?? _statusState.color) : _statusState.color,
+                      color: _statusState.getColor(widget.config.baseColor),
                     ),
                     child: Center(
                       child: InkWell(
