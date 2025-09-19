@@ -81,6 +81,8 @@ class JapaneseSpeechCompareConfig {
     this.retryButtonTitle = "Retry",
     this.answerCorrectEdge = 0.8,
     this.showAnswer = false,
+    this.answerTextStyle,
+    this.readyColor,
   });
 
   final String notSupportDeviceDescription;
@@ -88,6 +90,8 @@ class JapaneseSpeechCompareConfig {
   final String retryButtonTitle;
   final double answerCorrectEdge;
   final bool showAnswer;
+  final TextStyle? answerTextStyle;
+  final Color? readyColor;
 }
 
 class JapaneseSpeechCompareWidget extends StatefulWidget {
@@ -189,7 +193,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
               children: [
                 if(_result.isNotEmpty && widget.config.showAnswer) DefaultTextStyle(
                   key: ValueKey(_result),
-                  style: const TextStyle(
+                  style: widget.config.answerTextStyle ?? const TextStyle(
                     fontSize: 16.0,
                   ),
                   child: AnimatedTextKit(
@@ -216,7 +220,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     loop: true,
                     duration: Duration(milliseconds: 500),
                     styles: BlobStyles(
-                      color: _statusState.color,
+                      color: _statusState == StatusState.ready ? (widget.config.readyColor ?? _statusState.color) : _statusState.color,
                     ),
                     child: Center(
                       child: InkWell(
