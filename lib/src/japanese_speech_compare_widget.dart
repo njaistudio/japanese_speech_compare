@@ -159,14 +159,13 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
       setState(() {
         _statusState = StatusState.correct;
       });
-      await Future.delayed(const Duration(seconds: 1));
       widget.onResult?.call(true);
     } else {
       setState(() {
         _statusState = StatusState.wrong;
       });
-      await Future.delayed(const Duration(seconds: 1));
       widget.onResult?.call(false);
+      await Future.delayed(const Duration(seconds: 1));
       setState(() {
         _statusState = StatusState.ready;
       });
