@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "jscRetry": "Retry",
+  "jscNetworkError": "This feature requires network connectivity. Please check your connection and try again.",
+  "jscAndroidPermissionError": "The app requires microphone and Google Speech Services permissions to recognize speech. Please grant permissions in Settings.",
+  "jscIOSPermissionError": "The app requires microphone permission to recognize speech. Please grant permission in Settings."
+}

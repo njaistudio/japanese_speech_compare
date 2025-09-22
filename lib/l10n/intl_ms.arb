@@ -1,0 +1,7 @@
+{
+  "@@locale": "ms",
+  "jscRetry": "Cuba semula",
+  "jscNetworkError": "Ciri ini memerlukan sambungan rangkaian. Sila semak sambungan anda dan cuba lagi.",
+  "jscAndroidPermissionError": "Aplikasi memerlukan kebenaran mikrofon dan Google Speech Services untuk mengenali suara. Sila berikan kebenaran di Tetapan.",
+  "jscIOSPermissionError": "Aplikasi memerlukan kebenaran mikrofon untuk mengenali suara. Sila berikan kebenaran di Tetapan."
+}

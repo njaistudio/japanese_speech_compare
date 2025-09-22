@@ -1,0 +1,7 @@
+{
+  "@@locale": "vi",
+  "jscRetry": "Thử lại",
+  "jscNetworkError": "Tính năng này yêu cầu kết nối mạng. Vui lòng kiểm tra kết nối và thử lại.",
+  "jscAndroidPermissionError": "Ứng dụng cần quyền micro và Google Speech Services để nhận diện giọng nói. Vui lòng cấp quyền trong phần Cài đặt.",
+  "jscIOSPermissionError": "Ứng dụng cần quyền micro để nhận diện giọng nói. Vui lòng cấp quyền trong phần Cài đặt."
+}

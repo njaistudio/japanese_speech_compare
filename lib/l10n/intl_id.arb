@@ -1,0 +1,7 @@
+{
+  "@@locale": "id",
+  "jscRetry": "Coba lagi",
+  "jscNetworkError": "Fitur ini memerlukan koneksi jaringan. Silakan periksa koneksi dan coba lagi.",
+  "jscAndroidPermissionError": "Aplikasi memerlukan izin mikrofon dan Google Speech Services untuk mengenali suara. Silakan beri izin di Pengaturan.",
+  "jscIOSPermissionError": "Aplikasi memerlukan izin mikrofon untuk mengenali suara. Silakan beri izin di Pengaturan."
+}

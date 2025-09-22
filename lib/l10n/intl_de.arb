@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "jscRetry": "Erneut versuchen",
+  "jscNetworkError": "Diese Funktion erfordert eine Netzwerkverbindung. Bitte überprüfe die Verbindung und versuche es erneut.",
+  "jscAndroidPermissionError": "Die App benötigt Mikrofon- und Google Speech-Dienste-Berechtigungen zur Spracherkennung. Bitte gewähre die Berechtigungen in den Einstellungen.",
+  "jscIOSPermissionError": "Die App benötigt Mikrofonberechtigung zur Spracherkennung. Bitte gewähre die Berechtigung in den Einstellungen."
+}

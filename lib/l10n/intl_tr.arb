@@ -1,0 +1,7 @@
+{
+  "@@locale": "tr",
+  "jscRetry": "Tekrar dene",
+  "jscNetworkError": "Bu özellik ağ bağlantısı gerektirir. Lütfen bağlantınızı kontrol edin ve tekrar deneyin.",
+  "jscAndroidPermissionError": "Uygulamanın ses tanımak için mikrofon ve Google Speech Services izinlerine ihtiyacı var. Lütfen Ayarlar'dan izinleri verin.",
+  "jscIOSPermissionError": "Uygulamanın ses tanımak için mikrofon izni gerekiyor. Lütfen Ayarlar'dan izni verin."
+}

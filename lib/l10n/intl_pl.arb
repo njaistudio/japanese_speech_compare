@@ -1,0 +1,7 @@
+{
+  "@@locale": "pl",
+  "jscRetry": "Spróbuj ponownie",
+  "jscNetworkError": "Ta funkcja wymaga połączenia sieciowego. Sprawdź połączenie i spróbuj ponownie.",
+  "jscAndroidPermissionError": "Aplikacja potrzebuje uprawnień do mikrofonu i usług Google Speech, aby rozpoznawać mowę. Proszę przyznać uprawnienia w Ustawieniach.",
+  "jscIOSPermissionError": "Aplikacja potrzebuje uprawnienia mikrofonu, aby rozpoznawać mowę. Proszę przyznać uprawnienie w Ustawieniach."
+}

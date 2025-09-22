@@ -1,0 +1,7 @@
+{
+  "@@locale": "fr",
+  "jscRetry": "Réessayer",
+  "jscNetworkError": "Cette fonctionnalité nécessite une connexion réseau. Veuillez vérifier votre connexion et réessayer.",
+  "jscAndroidPermissionError": "L'application nécessite l'autorisation du microphone et des services Google Speech pour reconnaître la voix. Veuillez accorder les autorisations dans les Paramètres.",
+  "jscIOSPermissionError": "L'application nécessite l'autorisation du microphone pour reconnaître la voix. Veuillez accorder l'autorisation dans les Paramètres."
+}

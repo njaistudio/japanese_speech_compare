@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh",
+  "jscRetry": "重试",
+  "jscNetworkError": "此功能需要网络连接。请检查您的连接并重试。",
+  "jscAndroidPermissionError": "应用需要麦克风和 Google 语音服务权限来识别语音。请在设置中授予权限。",
+  "jscIOSPermissionError": "应用需要麦克风权限来识别语音。请在设置中授予权限。"
+}

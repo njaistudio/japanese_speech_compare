@@ -1,0 +1,7 @@
+{
+  "@@locale": "ko",
+  "jscRetry": "다시 시도",
+  "jscNetworkError": "이 기능을 사용하려면 네트워크 연결이 필요합니다. 연결을 확인하고 다시 시도해주세요.",
+  "jscAndroidPermissionError": "앱에서 음성 인식을 위해 마이크 및 Google Speech 서비스 권한이 필요합니다. 설정에서 권한을 허용해주세요.",
+  "jscIOSPermissionError": "앱에서 음성 인식을 위해 마이크 권한이 필요합니다. 설정에서 권한을 허용해주세요."
+}

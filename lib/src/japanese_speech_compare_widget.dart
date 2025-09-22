@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:japanese_sentence_similarity/japanese_sentence_similarity.dart';
+import 'package:japanese_speech_compare/generated/l10n.dart';
 import 'package:japanese_speech_compare/src/speech_recognizer_service.dart';
 
 enum StatusState {
@@ -76,18 +78,11 @@ enum StatusState {
 
 class JapaneseSpeechCompareConfig {
   JapaneseSpeechCompareConfig({
-    this.notSupportDeviceDescription = "Device is not support speech to text for japanese!",
-    this.networkErrorDescription = "Please check your internet connection!",
-    this.retryButtonTitle = "Retry",
     this.answerCorrectEdge = 0.8,
     this.showAnswer = false,
     this.answerTextStyle,
     this.baseColor,
   });
-
-  final String notSupportDeviceDescription;
-  final String networkErrorDescription;
-  final String retryButtonTitle;
   final double answerCorrectEdge;
   final bool showAnswer;
   final TextStyle? answerTextStyle;
@@ -277,16 +272,16 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     ),
                   ),
                 ),
-                if(_statusState == StatusState.notSupportError) Text(widget.config.notSupportDeviceDescription),
+                if(_statusState == StatusState.notSupportError) Text(Platform.isAndroid ? JapaneseSpeechCompareS.current.jscAndroidPermissionError : JapaneseSpeechCompareS.current.jscIOSPermissionError),
                 if(_statusState == StatusState.networkError) Column(
                   children: [
-                    Text(widget.config.networkErrorDescription),
+                    Text(JapaneseSpeechCompareS.current.jscNetworkError),
                     SizedBox(height: 8,),
                     ElevatedButton(
                       onPressed: () {
                         _setup();
                       },
-                      child: Text(widget.config.retryButtonTitle),
+                      child: Text(JapaneseSpeechCompareS.current.jscRetry),
                     )
                   ],
                 )

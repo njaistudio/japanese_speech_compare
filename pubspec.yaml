@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.20.2
   connectivity_plus: ^7.0.0
   flutter_animate: ^4.5.2
   blobs: ^2.0.0
@@ -61,3 +62,6 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+flutter_intl:
+  enabled: true
+  class_name: JapaneseSpeechCompareS

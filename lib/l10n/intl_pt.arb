@@ -1,0 +1,7 @@
+{
+  "@@locale": "pt",
+  "jscRetry": "Tentar novamente",
+  "jscNetworkError": "Este recurso exige conexão de rede. Por favor, verifique sua conexão e tente novamente.",
+  "jscAndroidPermissionError": "O app precisa de permissão para microfone e Google Speech Services para reconhecer voz. Por favor, conceda permissões nas Configurações.",
+  "jscIOSPermissionError": "O app precisa de permissão de microfone para reconhecer voz. Por favor, conceda permissão nas Configurações."
+}
