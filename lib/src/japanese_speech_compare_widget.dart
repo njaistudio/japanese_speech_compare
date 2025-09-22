@@ -54,7 +54,7 @@ enum StatusState {
       case StatusState.networkError:
         return Icons.network_check_rounded;
       case StatusState.notSupportError:
-        return Icons.error_outline_rounded;
+        return Icons.settings_suggest_rounded;
     }
   }
 
@@ -178,6 +178,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
     return LayoutBuilder(
         builder: (context, constraint) {
           final size = min(constraint.maxWidth, constraint.maxHeight);
+          final isError = _statusState == StatusState.notSupportError || _statusState == StatusState.networkError;
           return AspectRatio(
             aspectRatio: 1,
             child: Column(
@@ -197,7 +198,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     ],
                   ),
                 ),
-                if(_statusState != StatusState.notSupportError && _statusState != StatusState.prepare) TweenAnimationBuilder<double>(
+                if(_statusState != StatusState.prepare) TweenAnimationBuilder<double>(
                   tween: Tween<double>(begin: 0.8, end: _scale),
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeOut,
@@ -208,7 +209,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     );
                   },
                   child: Blob.animatedRandom(
-                    size: size / 1.7,
+                    size: size / (isError ? 2 : 1.7),
                     edgesCount: 9,
                     minGrowth: 9,
                     loop: true,
@@ -272,18 +273,43 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                     ),
                   ),
                 ),
-                if(_statusState == StatusState.notSupportError) Text(Platform.isAndroid ? JapaneseSpeechCompareS.current.jscAndroidPermissionError : JapaneseSpeechCompareS.current.jscIOSPermissionError),
-                if(_statusState == StatusState.networkError) Column(
-                  children: [
-                    Text(JapaneseSpeechCompareS.current.jscNetworkError),
-                    SizedBox(height: 8,),
-                    ElevatedButton(
-                      onPressed: () {
-                        _setup();
-                      },
-                      child: Text(JapaneseSpeechCompareS.current.jscRetry),
-                    )
-                  ],
+                if(_statusState == StatusState.notSupportError) Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        Platform.isAndroid ? JapaneseSpeechCompareS.current.jscAndroidPermissionError : JapaneseSpeechCompareS.current.jscIOSPermissionError,
+                        textAlign: TextAlign.center,
+                        style: widget.config.answerTextStyle?.copyWith(fontSize: size / 7),
+                      ),
+                      SizedBox(height: 8,),
+                      ElevatedButton(
+                        onPressed: () {
+                          _setup();
+                        },
+                        child: Text(JapaneseSpeechCompareS.current.jscRetry),
+                      )
+                    ],
+                  ),
+                ),
+                if(_statusState == StatusState.networkError) Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        JapaneseSpeechCompareS.current.jscNetworkError,
+                        textAlign: TextAlign.center,
+                        style: widget.config.answerTextStyle?.copyWith(fontSize: size / 8),
+                      ),
+                      SizedBox(height: 8,),
+                      ElevatedButton(
+                        onPressed: () {
+                          _setup();
+                        },
+                        child: Text(JapaneseSpeechCompareS.current.jscRetry),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
