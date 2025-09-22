@@ -208,17 +208,59 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                       child: child,
                     );
                   },
-                  child: Blob.animatedRandom(
-                    size: size / (isError ? 2 : 1.7),
-                    edgesCount: 9,
-                    minGrowth: 9,
-                    loop: true,
-                    duration: Duration(milliseconds: 500),
-                    styles: BlobStyles(
-                      color: _statusState.getColor(widget.config.baseColor),
-                    ),
-                    child: Center(
-                      child: InkWell(
+                  child: InkWell(
+                    onTap: () async {
+                      if(_statusState != StatusState.ready && _statusState != StatusState.listening) return;
+
+                      if(SpeechRecognizerService.instance.isListening) {
+                        await SpeechRecognizerService.instance.stopListening();
+                        setState(() {
+                          _statusState = StatusState.ready;
+                        });
+                        return;
+                      }
+
+                      SpeechRecognizerService.instance.startListening(
+                        onSoundLevelChanged: (level) {
+                          if(_scale == 1 && level == 1) {
+                            return;
+                          }
+                          setState(() {
+                            _scale = 1 + level / 2;
+                          });
+                        },
+                        onFinalResult: (text) {
+                          setState(() {
+                            _result = text;
+                            _progressResult();
+                          });
+                        },
+                        onListeningStart: () {
+                          widget.onListeningStart?.call();
+                          setState(() {
+                            _scale = 1;
+                            _result = "";
+                            _statusState = StatusState.listening;
+                          });
+                        },
+                        onListeningEnd: () {
+                          widget.onListeningEnd?.call();
+                          setState(() {
+                            _scale = 0.8;
+                          });
+                        },
+                      );
+                    },
+                    child: Blob.animatedRandom(
+                      size: size / (isError ? 2 : 1.7),
+                      edgesCount: 9,
+                      minGrowth: 9,
+                      loop: true,
+                      duration: Duration(milliseconds: 500),
+                      styles: BlobStyles(
+                        color: _statusState.getColor(widget.config.baseColor),
+                      ),
+                      child: Center(
                         child: Animate(
                           effects: _statusState.effects,
                           child: Icon(
@@ -227,48 +269,6 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                             color: Colors.white,
                           ),
                         ),
-                        onTap: () async {
-                          if(_statusState != StatusState.ready && _statusState != StatusState.listening) return;
-
-                          if(SpeechRecognizerService.instance.isListening) {
-                            await SpeechRecognizerService.instance.stopListening();
-                            setState(() {
-                              _statusState = StatusState.ready;
-                            });
-                            return;
-                          }
-
-                          SpeechRecognizerService.instance.startListening(
-                            onSoundLevelChanged: (level) {
-                              if(_scale == 1 && level == 1) {
-                                return;
-                              }
-                              setState(() {
-                                _scale = 1 + level / 2;
-                              });
-                            },
-                            onFinalResult: (text) {
-                              setState(() {
-                                _result = text;
-                                _progressResult();
-                              });
-                            },
-                            onListeningStart: () {
-                              widget.onListeningStart?.call();
-                              setState(() {
-                                _scale = 1;
-                                _result = "";
-                                _statusState = StatusState.listening;
-                              });
-                            },
-                            onListeningEnd: () {
-                              widget.onListeningEnd?.call();
-                              setState(() {
-                                _scale = 0.8;
-                              });
-                            },
-                          );
-                        },
                       ),
                     ),
                   ),
