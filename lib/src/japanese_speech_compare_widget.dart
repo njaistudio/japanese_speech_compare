@@ -274,7 +274,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                   ),
                 ),
                 if(_statusState == StatusState.notSupportError) Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
                     children: [
                       Text(
@@ -293,7 +293,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                   ),
                 ),
                 if(_statusState == StatusState.networkError) Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
                     children: [
                       Text(
