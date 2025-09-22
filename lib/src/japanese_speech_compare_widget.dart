@@ -208,7 +208,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                       child: child,
                     );
                   },
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: () async {
                       if(_statusState != StatusState.ready && _statusState != StatusState.listening) return;
 
