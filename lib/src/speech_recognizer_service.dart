@@ -89,7 +89,7 @@ class SpeechRecognizerService {
     );
 
     _speechToText.statusListener = (status) {
-      if (status == 'done' || status == 'notListening') {
+      if ((status == 'done' || status == 'notListening') && _isListening) {
         _isListening = false;
         onListeningEnd?.call();
       }

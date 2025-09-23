@@ -146,21 +146,32 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
     });
 
     if(_result.isEmpty) {
+      _onWrong();
       return;
     }
 
     final compareResult = await SentenceComparer.compare(widget.question, _result, requiredTexts: widget.requiredTexts);
     if(compareResult >= widget.config.answerCorrectEdge) {
-      setState(() {
-        _statusState = StatusState.correct;
-      });
-      widget.onResult?.call(true);
+      _onCorrect();
     } else {
-      setState(() {
-        _statusState = StatusState.wrong;
-      });
-      widget.onResult?.call(false);
-      await Future.delayed(const Duration(seconds: 1));
+      _onWrong();
+    }
+  }
+
+  _onCorrect() {
+    setState(() {
+      _statusState = StatusState.correct;
+    });
+    widget.onResult?.call(true);
+  }
+
+  _onWrong() async {
+    setState(() {
+      _statusState = StatusState.wrong;
+    });
+    widget.onResult?.call(false);
+    await Future.delayed(const Duration(seconds: 1));
+    if(mounted) {
       setState(() {
         _statusState = StatusState.ready;
       });
@@ -232,8 +243,8 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                         onFinalResult: (text) {
                           setState(() {
                             _result = text;
-                            _progressResult();
                           });
+                          _progressResult();
                         },
                         onListeningStart: () {
                           widget.onListeningStart?.call();
@@ -243,11 +254,15 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                             _statusState = StatusState.listening;
                           });
                         },
-                        onListeningEnd: () {
+                        onListeningEnd: () async {
                           widget.onListeningEnd?.call();
                           setState(() {
                             _scale = 0.8;
                           });
+                          await Future.delayed(Duration(milliseconds: 200));
+                          if(mounted) {
+                            _progressResult();
+                          }
                         },
                       );
                     },
