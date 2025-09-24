@@ -230,8 +230,11 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                         });
                         return;
                       }
-
+                      final service = GoogleTransliterateService();
+                      final questionRomaji = await service.convertToRomaji(widget.question, shouldLoadFromCache: true);
+                      final estimatePronounceDuration = Duration(milliseconds: _estimatePronounceTimeMs(questionRomaji));
                       SpeechRecognizerService.instance.startListening(
+                        listenDuration: estimatePronounceDuration,
                         onSoundLevelChanged: (level) {
                           if(_scale == 1 && level == 1) {
                             return;
@@ -259,10 +262,6 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                           setState(() {
                             _scale = 0.8;
                           });
-                          await Future.delayed(Duration(milliseconds: 200));
-                          if(mounted) {
-                            _progressResult();
-                          }
                         },
                       );
                     },
@@ -331,5 +330,36 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
           );
         }
     );
+  }
+
+  int _countMora(String romaji) {
+    romaji = romaji.toLowerCase().replaceAll(RegExp(r'[^a-z]'), '');
+    int mora = 0;
+
+    for (int i = 0; i < romaji.length; i++) {
+      String c = romaji[i];
+
+      if ('aeiou'.contains(c)) {
+        mora++;
+      }
+
+      else if (c == 'n') {
+        if (i + 1 >= romaji.length || !'aeiou'.contains(romaji[i + 1])) {
+          mora++;
+        }
+      }
+
+      else if (i + 1 < romaji.length && romaji[i] == romaji[i + 1] && !'aeiou'.contains(c)) {
+        mora++;
+        i++;
+      }
+    }
+
+    return mora;
+  }
+
+  int _estimatePronounceTimeMs(String romaji, {double timePerMora = 0.4}) {
+    int mora = _countMora(romaji);
+    return (mora * timePerMora * 1000).round();
   }
 }
