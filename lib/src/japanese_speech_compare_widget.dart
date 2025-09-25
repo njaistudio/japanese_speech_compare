@@ -10,6 +10,11 @@ import 'package:japanese_sentence_similarity/japanese_sentence_similarity.dart';
 import 'package:japanese_speech_compare/generated/l10n.dart';
 import 'package:japanese_speech_compare/src/speech_recognizer_service.dart';
 
+enum SpeechRecognizerType {
+  word,
+  sentence
+}
+
 enum StatusState {
   prepare,
   ready,
@@ -82,11 +87,13 @@ class JapaneseSpeechCompareConfig {
     this.showAnswer = false,
     this.answerTextStyle,
     this.baseColor,
+    required this.type,
   });
   final double answerCorrectEdge;
   final bool showAnswer;
   final TextStyle? answerTextStyle;
   final Color? baseColor;
+  final SpeechRecognizerType type;
 }
 
 class JapaneseSpeechCompareWidget extends StatefulWidget {
@@ -230,9 +237,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                         });
                         return;
                       }
-                      final service = GoogleTransliterateService();
-                      final questionRomaji = await service.convertToRomaji(widget.question, shouldLoadFromCache: true);
-                      final estimatePronounceDuration = Duration(milliseconds: _estimatePronounceTimeMs(questionRomaji));
+                      final estimatePronounceDuration = await _estimateKanjiPronounceDuration(widget.question, widget.config.type);
                       SpeechRecognizerService.instance.startListening(
                         listenDuration: estimatePronounceDuration,
                         onSoundLevelChanged: (level) {
@@ -358,8 +363,18 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
     return mora;
   }
 
-  int _estimatePronounceTimeMs(String romaji, {double timePerMora = 0.4}) {
+  Duration _estimateRomajiPronounceDuration(String romaji, {double timePerMora = 0.5}) {
     int mora = _countMora(romaji);
-    return (mora * timePerMora * 1000).round();
+    return Duration(milliseconds: min(3000, (mora * timePerMora * 1000).round()));
+  }
+
+  Future<Duration> _estimateKanjiPronounceDuration(String kanji, SpeechRecognizerType type, {double timePerMora = 0.5}) async {
+    switch(type) {
+      case SpeechRecognizerType.word:
+        return Duration(milliseconds: 3000);
+      case SpeechRecognizerType.sentence:
+        final questionRomaji = await JssStringUtils.getTransliteratedRomaji(widget.question);
+        return _estimateRomajiPronounceDuration(questionRomaji, timePerMora: timePerMora);;
+    }
   }
 }

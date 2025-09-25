@@ -19,7 +19,7 @@ dependencies:
   japanese_sentence_similarity:
     git:
       url: https://github.com/njaistudio/japanese_sentence_similarity.git
-      ref: v0.0.3
+      ref: v0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +62,6 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
-flutter_intl:
-  enabled: true
-  class_name: JapaneseSpeechCompareS
+#flutter_intl:
+#  enabled: true
+#  class_name: JapaneseSpeechCompareS
