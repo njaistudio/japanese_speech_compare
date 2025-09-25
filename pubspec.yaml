@@ -1,7 +1,6 @@
 name: japanese_speech_compare
 description: "A new Flutter project."
-version: 0.0.2
-homepage:
+version: 0.0.5
 
 environment:
   sdk: ^3.8.1

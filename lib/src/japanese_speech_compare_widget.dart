@@ -365,7 +365,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
 
   Duration _estimateRomajiPronounceDuration(String romaji, {double timePerMora = 0.5}) {
     int mora = _countMora(romaji);
-    return Duration(milliseconds: min(3000, (mora * timePerMora * 1000).round()));
+    return Duration(milliseconds: max(3000, (mora * timePerMora * 1000).round()));
   }
 
   Future<Duration> _estimateKanjiPronounceDuration(String kanji, SpeechRecognizerType type, {double timePerMora = 0.5}) async {
