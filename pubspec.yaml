@@ -18,7 +18,7 @@ dependencies:
   japanese_sentence_similarity:
     git:
       url: https://github.com/njaistudio/japanese_sentence_similarity.git
-      ref: v0.0.5
+      ref: v0.0.7
 
 dev_dependencies:
   flutter_test:
