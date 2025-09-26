@@ -237,7 +237,10 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                         });
                         return;
                       }
-                      final estimatePronounceDuration = await _estimateKanjiPronounceDuration(widget.question, widget.config.type);
+                      Duration? estimatePronounceDuration;
+                      if(Platform.isIOS) {
+                        estimatePronounceDuration = await _estimateKanjiPronounceDuration(widget.question, widget.config.type);
+                      }
                       SpeechRecognizerService.instance.startListening(
                         listenDuration: estimatePronounceDuration,
                         onSoundLevelChanged: (level) {
