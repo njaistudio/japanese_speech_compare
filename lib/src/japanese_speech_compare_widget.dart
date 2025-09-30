@@ -157,7 +157,7 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
       return;
     }
 
-    final compareResult = await SentenceComparer.compare(widget.question, _result, requiredTexts: widget.requiredTexts, keepHiragana: widget.config.type == SpeechRecognizerType.word);
+    final compareResult = await SentenceComparer.compare(widget.question, _result, requiredTexts: widget.requiredTexts);
     if(compareResult >= widget.config.answerCorrectEdge) {
       _onCorrect();
     } else {
