@@ -269,9 +269,11 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
                         },
                         onListeningEnd: () async {
                           widget.onListeningEnd?.call();
-                          setState(() {
-                            _scale = 0.8;
-                          });
+                          if(mounted) {
+                            setState(() {
+                              _scale = 0.8;
+                            });
+                          }
                         },
                       );
                     },

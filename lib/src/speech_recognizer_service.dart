@@ -77,7 +77,10 @@ class SpeechRecognizerService {
     }
 
     _speechToText.listen(
-      localeId: localeId,
+      listenOptions: SpeechListenOptions(
+        localeId: localeId,
+        onDevice: false
+      ),
       onSoundLevelChange: (level) {
         onSoundLevelChanged?.call(_normalizeSoundLevel(level));
       },
