@@ -41,7 +41,7 @@ class SpeechRecognizerService {
   }
 
   void startListening({
-    String localeId = "ja_JP",
+    String localeId = "ja-JP",
     Function(double)? onSoundLevelChanged,
     Duration? listenDuration,
     OnStatusChange? onListeningStart,

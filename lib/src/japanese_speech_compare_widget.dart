@@ -104,6 +104,7 @@ class JapaneseSpeechCompareWidget extends StatefulWidget {
     this.onResult,
     this.onListeningStart,
     this.onListeningEnd,
+    this.localeId = "ja-JP",
     required this.config,
   });
 
@@ -113,6 +114,7 @@ class JapaneseSpeechCompareWidget extends StatefulWidget {
   final Function? onListeningStart;
   final Function? onListeningEnd;
   final JapaneseSpeechCompareConfig config;
+  final String localeId;
 
   @override
   State<JapaneseSpeechCompareWidget> createState() => _JapaneseSpeechCompareWidgetState();
