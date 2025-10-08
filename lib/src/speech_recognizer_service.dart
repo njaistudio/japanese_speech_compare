@@ -20,7 +20,6 @@ class SpeechRecognizerService {
 
   final SpeechToText _speechToText = SpeechToText();
   bool _isListening = false;
-  bool _hasFinalResult = false;
 
   bool get isListening => _isListening;
   SpeechRecognizerEnvironmentState get environmentState => _environmentState;
@@ -68,7 +67,6 @@ class SpeechRecognizerService {
     }
 
     _isListening = true;
-    _hasFinalResult = false;
     onListeningStart?.call();
     if(listenDuration != null) {
       Future.delayed(listenDuration).then((_) {
@@ -83,8 +81,6 @@ class SpeechRecognizerService {
       },
       onResult: (result) {
         if (result.finalResult) {
-          if (_hasFinalResult) return;
-          _hasFinalResult = true;
           onFinalResult?.call(result.recognizedWords);
         } else {
           onPartialResult?.call(result.recognizedWords);
@@ -95,13 +91,12 @@ class SpeechRecognizerService {
     _speechToText.statusListener = (status) {
       if ((status == 'done' || status == 'notListening') && _isListening) {
         _isListening = false;
-        Future.delayed(Duration(milliseconds: 100)).then((_) {
-          if (_hasFinalResult) return;
-          _hasFinalResult = true;
-          onFinalResult?.call("");
-        });
         onListeningEnd?.call();
       }
+    };
+
+    _speechToText.errorListener = (error) {
+      onFinalResult?.call("");
     };
   }
 
