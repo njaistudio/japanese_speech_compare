@@ -109,7 +109,7 @@ class JapaneseSpeechCompareWidget extends StatefulWidget {
 
   final String question;
   final List<String> requiredTexts;
-  final Function(bool)? onResult;
+  final Function(bool, double)? onResult;
   final Function? onListeningStart;
   final Function? onListeningEnd;
   final JapaneseSpeechCompareConfig config;
@@ -153,30 +153,30 @@ class _JapaneseSpeechCompareWidgetState extends State<JapaneseSpeechCompareWidge
     });
 
     if(_result.isEmpty) {
-      _onWrong();
+      _onWrong(0);
       return;
     }
 
     final compareResult = await SentenceComparer.compare(widget.question, _result, requiredTexts: widget.requiredTexts);
     if(compareResult >= widget.config.answerCorrectEdge) {
-      _onCorrect();
+      _onCorrect(compareResult);
     } else {
-      _onWrong();
+      _onWrong(compareResult);
     }
   }
 
-  _onCorrect() {
+  _onCorrect(double percent) {
     setState(() {
       _statusState = StatusState.correct;
     });
-    widget.onResult?.call(true);
+    widget.onResult?.call(true, percent);
   }
 
-  _onWrong() async {
+  _onWrong(double percent) async {
     setState(() {
       _statusState = StatusState.wrong;
     });
-    widget.onResult?.call(false);
+    widget.onResult?.call(false, percent);
     await Future.delayed(const Duration(seconds: 1));
     if(mounted) {
       setState(() {
